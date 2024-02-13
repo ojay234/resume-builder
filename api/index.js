@@ -5,7 +5,7 @@ const fs = require("fs");
 const cors = require("cors"); // Import CORS middleware
 
 const app = express();
-const port = 8500;
+const port = 4000;
 
 // Middleware to parse JSON and urlencoded bodies
 app.use(bodyParser.json());
@@ -18,18 +18,24 @@ app.use(cors());
 app.post("/generate-pdf", async (req, res) => {
   try {
     const { html, css } = req.body;
+  
 
-    // Generate a temporary HTML file with the provided HTML/CSS content
-    const htmlFilePath = "./temp/template.html";
-    fs.writeFileSync(htmlFilePath, `<style>${css}</style>${html}`, "utf8");
+    // // Generate a temporary HTML file with the provided HTML/CSS content
+    // const htmlFilePath = "./temp/template.html";
+    // fs.writeFileSync(htmlFilePath, `<style>${css}</style>${html}`, "utf8");
 
     // Generate PDF using Puppeteer
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(`file://${__dirname}/${htmlFilePath}`, {
-      waitUntil: "networkidle0",
-    });
-    const pdfBuffer = await page.pdf({ format: "A4" });
+
+    // await page.goto(`file://${__dirname}/${htmlFilePath}`, {
+    //   waitUntil: "networkidle0",
+    // });
+
+    // Inject CSS into the page content
+    await page.setContent(`<style>${css}</style>${html}`);
+
+    const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
     await browser.close();
 
     // Send PDF file as a download
@@ -38,7 +44,7 @@ app.post("/generate-pdf", async (req, res) => {
     res.send(pdfBuffer);
 
     // Cleanup: delete temporary HTML file
-    fs.unlinkSync(htmlFilePath);
+    // fs.unlinkSync(htmlFilePath);
   } catch (error) {
     console.error("Error generating PDF:", error);
     res.status(500).send("Internal Server Error");

@@ -14,16 +14,16 @@ function Navbar() {
 
   return (
     <nav className="sticky top-0 left-0 z-[99] bg-white w-full">
-      <div className="flex justify-between items-center px-11 py-3 relative">
+      <div className="flex justify-between items-center px-16 py-3 relative">
         <h1>
-          resume<span className="font-bold">Builder</span>
+          Resume<span className="font-bold">Builder</span>
         </h1>
         <StyledRow
           className="flex flex-col absolute md:relative top-[50px] md:top-0 md:flex-row gap-4 md:justify-between md:w-[70%] bg-white md:bg-transparent"
           show={showMenu}
         >
           <div className="flex md:flex-row flex-col md:gap-8 text-fontGray">
-            <a href="/listBuilder">Lists</a>
+            <a href="/listBuilder">Cover Letters</a>
             <a href="/resumebuilder">Resumes</a>
           </div>
           <CustomButton text="Build My Resume" clicked={navigateToBuilder} />

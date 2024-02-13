@@ -1,9 +1,15 @@
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/page-sections/home/hero-section";
 
 export default function Home() {
   return (
-    <main>
-      <HeroSection />
-    </main>
+    <section>
+      <Navbar />
+      <div>
+        <HeroSection />
+      </div>
+      <Footer />
+    </section>
   );
 }
