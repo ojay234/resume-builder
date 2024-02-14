@@ -3,12 +3,12 @@ import React from "react";
 
 function layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <section className="px-10
-    ">
+    <section
+      className="px-10
+    "
+    >
       <Header />
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </section>
   );
 }
