@@ -26,6 +26,7 @@ const StyledInputContainer = styled.div`
     width: 100%;
     padding: 2px 20px;
     border: 1px solid #ccc;
+    outline: none;
   }
 `;
 
