@@ -5,12 +5,13 @@ interface ButtonProps {
   text: string;
   color?: string;
   width?: string;
-  clicked: () => void;
+  clicked?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
-function CustomButton({ text, color, width, clicked }: ButtonProps) {
+function CustomButton({ text, color, width, clicked, type }: ButtonProps) {
   return (
-    <StyledButton color={color} onClick={clicked} width={width}>
+    <StyledButton color={color} onClick={clicked} width={width} type={type}>
       {text}
     </StyledButton>
   );

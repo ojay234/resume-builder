@@ -7,7 +7,9 @@ function PersonalDetails() {
   return (
     <div className="flex gap-2">
       <Sidebar />
-      <PersonalDetailsForm />
+      <div className="md:ml-[20%] w-full">
+         <PersonalDetailsForm />
+      </div>
     </div>
   );
 }

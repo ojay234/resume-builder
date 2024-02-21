@@ -105,6 +105,7 @@ function Sidebar() {
 
 const SidebarContainer = styled.div`
   height: calc(100vh - 60px);
+  position: fixed;
   overflow: hidden !important;
 `;
 
