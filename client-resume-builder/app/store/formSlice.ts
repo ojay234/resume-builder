@@ -1,25 +1,10 @@
 "use client";
 import { createSlice } from "@reduxjs/toolkit";
-import { formProps } from "../types/formTypes";
-
-export const initialFormState: formProps = {
-  personalDetails: {
-    photo: "",
-    firstName: "",
-    lastName: "",
-    desiredJob: "",
-    phoneNumber: "",
-    country: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    email: "",
-  },
-};
+import initialResumeFormValues from "../features/resume/forms/models/initialResumeFormValues";
 
 export const formSlice = createSlice({
   name: "form",
-  initialState: initialFormState,
+  initialState: initialResumeFormValues,
   reducers: {
     updatePersonalDetails: (state, action) => {
       state.personalDetails = { ...state.personalDetails, ...action.payload };

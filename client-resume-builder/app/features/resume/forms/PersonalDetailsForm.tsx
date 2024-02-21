@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import CustomInput from "@/components/common/form/custom-input";
 import codes from "country-calling-code";
@@ -6,12 +6,40 @@ import CustomSelect from "@/components/common/form/custom-select";
 import CustomInputWithAddons from "@/components/common/form/custom-input-with-addons";
 import CustomButton from "@/components/common/custom-button";
 import ImageInput from "@/components/common/form/image-input";
-import { initialFormState, updatePersonalDetails } from "@/app/store/formSlice";
-import { useDispatch } from "react-redux";
+import { updatePersonalDetails } from "@/app/store/formSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
 import { PersonalDetailsProps } from "@/app/types/formTypes";
 
 function PersonalDetailsForm() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const personalDetailsState = useAppSelector((state) => state.personalDetails);
+
+  const imageChangeHandler = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const imgFile = event.target.files?.[0];
+    console.log(imgFile);
+    if (imgFile) {
+      try {
+        const reader = new FileReader(); // Create a new FileReader instance
+        reader.onload = function () {
+          const imgDataURL = reader.result as string; // Get the data URL of the file
+
+          dispatch(
+            updatePersonalDetails({
+              ...personalDetailsState,
+              photo: imgDataURL,
+            })
+          );
+          // Set the image data URL
+        };
+        reader.readAsDataURL(imgFile); // Read the file as a data URL
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    }
+  };
+
   const previousForm = () => {
     console.log("previous");
   };
@@ -29,13 +57,13 @@ function PersonalDetailsForm() {
           Let&apos;s start with the basics. To ensure employers can reach you,
           input at least your name, email, and phone number.
         </p>
-        <Formik
-          initialValues={initialFormState.personalDetails}
-          onSubmit={nextForm}
-        >
+        <Formik initialValues={personalDetailsState} onSubmit={nextForm}>
           <Form>
             <div className="flex flex-col gap-3 my-5">
-              <ImageInput />
+              <ImageInput
+                image={personalDetailsState.photo}
+                imageChangeHandler={imageChangeHandler}
+              />
               <div className="flex gap-5">
                 <div className="w-1/2">
                   <CustomInput
@@ -59,7 +87,7 @@ function PersonalDetailsForm() {
                 <CustomInputWithAddons
                   inputName="phone"
                   inputType="text"
-                  selectName="codes"
+                  selectName="code"
                   label="Phone"
                   options={codes.map((code, index) => (
                     <option key={index}>
@@ -74,7 +102,7 @@ function PersonalDetailsForm() {
               <div className="flex gap-5">
                 <div className="w-1/2">
                   <CustomSelect
-                    name="Country"
+                    name="country"
                     type="select"
                     label="Country"
                     options={codes.map((code, index) => (
@@ -95,7 +123,7 @@ function PersonalDetailsForm() {
                   />
                 </div>
                 <div className="w-1/2">
-                  <CustomInput name="zipcode" type="text" label="Zip Code" />
+                  <CustomInput name="zipCode" type="text" label="Zip Code" />
                 </div>
               </div>
               <div>
