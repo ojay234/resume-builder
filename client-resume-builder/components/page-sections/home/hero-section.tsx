@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import CustomButton from "@/components/common/custom-button";
+import CustomButton from "@/components/common/CustomButton";
+import heroImg from "@assets/images/hero.jpg";
 import Image from "next/image";
 
 function HeroSection() {
@@ -13,7 +14,7 @@ function HeroSection() {
       <div className="md:w-[50%] relative my-5 md:my-0">
         <div className="ml-5 relative md:w-[85%] w-[100%] h-[390px] border-2 rounded-md">
           <Image
-            src="/assets/images/hero.jpg"
+            src={heroImg}
             alt=""
             fill
             style={{
@@ -34,7 +35,10 @@ function HeroSection() {
           over 14 million job seekers today
         </p>
         <div>
-          <CustomButton text="Build My Resume Now" clicked={navigateToBuilder} />
+          <CustomButton
+            text="Build My Resume Now"
+            clicked={navigateToBuilder}
+          />
         </div>
       </div>
     </div>

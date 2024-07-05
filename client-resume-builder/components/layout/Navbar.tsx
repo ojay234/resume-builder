@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import CustomButton from "../common/custom-button";
+import CustomButton from "../common/CustomButton";
 import { CgMenuRightAlt } from "react-icons/cg";
 import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
+import Link from "next/link";
 
 function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -23,8 +24,8 @@ function Navbar() {
           show={showMenu}
         >
           <div className="flex md:flex-row flex-col md:gap-8 text-fontGray">
-            <a href="/listBuilder">Cover Letters</a>
-            <a href="/resumebuilder">Resumes</a>
+            <Link href="/listBuilder">Cover Letters</Link>
+            <Link href="/features/resume">Resumes</Link>
           </div>
           <CustomButton text="Build My Resume" clicked={navigateToBuilder} />
         </StyledRow>

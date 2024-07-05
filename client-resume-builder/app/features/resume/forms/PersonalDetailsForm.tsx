@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import CustomInput from "@/components/common/form/custom-input";
+import CustomInput from "@/components/common/form/CustomInput";
 import codes from "country-calling-code";
-import CustomSelect from "@/components/common/form/custom-select";
-import CustomInputWithAddons from "@/components/common/form/custom-input-with-addons";
-import CustomButton from "@/components/common/custom-button";
-import ImageInput from "@/components/common/form/image-input";
+import CustomSelect from "@/components/common/form/CustomSelect";
+import CustomInputWithAddons from "@/components/common/form/CustomInputWithAddons";
+import CustomButton from "@/components/common/CustomButton";
+import ImageInput from "@/components/common/form/ImageInput";
 import { updatePersonalDetails } from "@/app/store/formSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
 import { PersonalDetailsProps } from "@/app/types/formTypes";
+import { FaPlus } from "react-icons/fa";
+import CustomAddButton from "@/components/common/CustomAddButton";
 
 function PersonalDetailsForm() {
   const dispatch = useAppDispatch();
@@ -129,6 +131,20 @@ function PersonalDetailsForm() {
               <div>
                 <CustomInput name="email" type="text" label="Email Address" />
               </div>
+              <div className="flex gap-5">
+                <div className="w-1/2">
+                  <CustomInput name="linkedIn" type="text" label="LinkedIn" />
+                </div>
+                <div className="w-1/2">
+                  <CustomInput name="twitter" type="text" label="Twitter" />
+                </div>
+              </div>
+              <div className="flex gap-5">
+                <div className="w-1/2">
+                  <CustomInput name="website" type="text" label="Website" />
+                </div>
+              </div>
+
               <div className="flex gap-5 my-5">
                 <CustomButton
                   text="Back"

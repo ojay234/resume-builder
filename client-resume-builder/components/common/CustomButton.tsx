@@ -9,7 +9,13 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
 }
 
-function CustomButton({ text, color, width, clicked, type }: ButtonProps) {
+function CustomButton({
+  text,
+  color,
+  width,
+  clicked,
+  type = "button",
+}: ButtonProps) {
   return (
     <StyledButton color={color} onClick={clicked} width={width} type={type}>
       {text}

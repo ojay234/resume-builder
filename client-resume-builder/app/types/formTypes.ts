@@ -2,6 +2,8 @@ import PersonalDetails from "../features/resume/personal-details/page";
 
 export type resumeFormProps = {
   personalDetails: PersonalDetailsProps;
+  experience: experienceProps;
+  experiences: experienceProps[];
 };
 
 export type PersonalDetailsProps = {
@@ -16,4 +18,22 @@ export type PersonalDetailsProps = {
   state: string;
   zipCode: string;
   email: string;
+  website: string;
+  linkedIn: string;
+  twitter: string;
 };
+
+export type experienceProps = {
+  jobTitle: string;
+  companyName: string;
+  country: string;
+  state: string;
+  city: string;
+  startDate: string;
+  endDate: string;
+  experience: string;
+};
+
+// export type experiencesProps = {
+//   company: experienceProps[];
+// };

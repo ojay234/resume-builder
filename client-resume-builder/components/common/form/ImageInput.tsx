@@ -2,7 +2,7 @@ import { useField } from "formik";
 import React, { useRef, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import styled from "styled-components";
-import CustomButton from "../custom-button";
+import CustomButton from "../CustomButton";
 import Image from "next/image";
 
 interface ImageInputProps {
