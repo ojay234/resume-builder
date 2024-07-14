@@ -20,36 +20,35 @@ function ExperienceForm({ updateExperienceInfo }: updateExperienceInfoProps) {
   const experienceState = useAppSelector((state) => state.experience);
   const quillRef = useRef(null);
   const dispatch = useAppDispatch();
-  const [editorState, setEditorState] = useState("");
 
-  const editor = useRef(null);
+  console.log(experienceState.experience, "quillBot");
 
   const previousForm = () => {
     console.log("previous");
   };
 
-  // useEffect(() => {
-  //   if (quillRef.current) {
-  //     const quill = quillRef.current.getEditor();
-  //     const toolbar = quill.getModule("toolbar");
+  useEffect(() => {
+    if (quillRef.current) {
+      const quill = quillRef.current.getEditor();
+      const toolbar = quill.getModule("toolbar");
 
-  //     // Set up default list format
-  //     quill.on("text-change", (delta, oldDelta, source) => {
-  //       if (source === "user") {
-  //         const currentFormat = quill.getFormat(quill.getSelection());
-  //         if (!currentFormat["list"]) {
-  //           quill.format("list", "bullet");
-  //         }
-  //       }
-  //     });
-  //   }
-  // }, [quillRef]);
+      // Set up default list format
+      quill.on("text-change", (delta, oldDelta, source) => {
+        if (source === "user") {
+          const currentFormat = quill.getFormat(quill.getSelection());
+          if (!currentFormat["list"]) {
+            quill.format("list", "bullet");
+          }
+        }
+      });
+    }
+  }, [quillRef]);
 
   return (
     <ExperienceFormContainer>
       <div className="flex gap-2">
         <p>{experienceState.jobTitle}</p>
-        <p>{experienceState.companyName}</p>
+        <p>{experienceState.company}</p>
       </div>
       <div className="">
         <Formik initialValues={experienceState} onSubmit={updateExperienceInfo}>
@@ -63,7 +62,6 @@ function ExperienceForm({ updateExperienceInfo }: updateExperienceInfoProps) {
                   value={values.experience}
                   onChange={(content) => {
                     setFieldValue("experience", content);
-                    console.log(content);
                   }}
                   modules={{
                     toolbar: [[{ list: "bullet" }]],

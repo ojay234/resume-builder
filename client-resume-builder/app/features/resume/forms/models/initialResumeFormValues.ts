@@ -21,8 +21,9 @@ const initialResumeFormValues: resumeFormProps = {
     twitter: "",
   },
   experience: {
+    id: null,
     jobTitle: "",
-    companyName: "",
+    company: "",
     country: "",
     state: "",
     city: "",

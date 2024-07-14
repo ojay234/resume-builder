@@ -24,8 +24,9 @@ export type PersonalDetailsProps = {
 };
 
 export type experienceProps = {
+  id: number | null;
   jobTitle: string;
-  companyName: string;
+  company: string;
   country: string;
   state: string;
   city: string;

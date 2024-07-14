@@ -12,15 +12,17 @@ export const formSlice = createSlice({
     },
     updateExperience: (state, action) => {
       state.experience = { ...state.experience, ...action.payload };
-      console.log(state.experience);
+      console.log(state.experience, "state");
     },
-    resetExperience: (state) => {
-      state.experience = initialResumeFormValues.experience;
-      console.log("Experience reset:", state.experience);
+    setExperienceState: (state, action) => {
+      state.experience = action.payload;
     },
     updateExperiences: (state, action) => {
       state.experiences.push(action.payload);
       console.log(state.experience);
+    },
+    setExperiencesState: (state, action) => {
+      state.experiences = action.payload;
     },
   },
 });
@@ -30,7 +32,8 @@ export const {
   updatePersonalDetails,
   updateExperience,
   updateExperiences,
-  resetExperience,
+  setExperiencesState,
+  setExperienceState,
 } = formSlice.actions;
 
 export default formSlice.reducer;
