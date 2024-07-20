@@ -24,6 +24,25 @@ export const formSlice = createSlice({
     setExperiencesState: (state, action) => {
       state.experiences = action.payload;
     },
+    setEducationState: (state, action) => {
+      state.education = action.payload;
+    },
+    updateEducationList: (state, action) => {
+      state.educationList.push(action.payload);
+      console.log(state.education);
+    },
+    setEducationListState: (state, action) => {
+      state.educationList = action.payload;
+    },
+    setCertificateState: (state, action) => {
+      state.certificate = action.payload;
+    },
+    updateCertificates: (state, action) => {
+      state.certificates.push(action.payload);
+    },
+    setCertificatesState: (state, action) => {
+      state.certificates = action.payload;
+    },
   },
 });
 
@@ -34,6 +53,12 @@ export const {
   updateExperiences,
   setExperiencesState,
   setExperienceState,
+  setEducationState,
+  setEducationListState,
+  updateEducationList,
+  updateCertificates,
+  setCertificateState,
+  setCertificatesState
 } = formSlice.actions;
 
 export default formSlice.reducer;

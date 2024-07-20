@@ -5,14 +5,13 @@ interface CustomInputProps {
   name: string;
   type: string;
   label: string;
-  pattern?: string;
 }
 
-function CustomInput({ name, type, label, pattern }: CustomInputProps) {
+function CustomInput({ name, type, label }: CustomInputProps) {
   return (
     <StyledInputContainer>
       <label>{label}</label>
-      <Field name={name} type={type} pattern={pattern} />
+      <Field name={name} type={type} />
     </StyledInputContainer>
   );
 }

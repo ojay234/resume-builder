@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Formik, Form } from "formik";
 import CustomInput from "@/components/common/form/CustomInput";
 import codes from "country-calling-code";
@@ -9,33 +10,52 @@ import ImageInput from "@/components/common/form/ImageInput";
 import { updatePersonalDetails } from "@/app/store/formSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
 import { PersonalDetailsProps } from "@/app/types/formTypes";
-import { FaPlus } from "react-icons/fa";
 import CustomAddButton from "@/components/common/CustomAddButton";
+import CustomDeletableInput from "@/components/common/form/CustomDeletableInput";
 
 function PersonalDetailsForm() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const personalDetailsState = useAppSelector((state) => state.personalDetails);
+  const [showDeletableInput, setShowDeletableInput] = useState({
+    linkedin: false,
+    website: false,
+    twitter: false,
+  });
+
+  type DeletableInputKey = "linkedin" | "website" | "twitter";
+
+  const deletableInputs: DeletableInputKey[] = [
+    "linkedin",
+    "twitter",
+    "website",
+  ];
+
+  const addBtnClickHandler = (label: string) => {
+    const formattedLabel = label.toLowerCase() as DeletableInputKey;
+    setShowDeletableInput((prevState) => ({
+      ...prevState,
+      [formattedLabel]: true,
+    }));
+  };
 
   const imageChangeHandler = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const imgFile = event.target.files?.[0];
-    console.log(imgFile);
     if (imgFile) {
       try {
-        const reader = new FileReader(); // Create a new FileReader instance
+        const reader = new FileReader();
         reader.onload = function () {
-          const imgDataURL = reader.result as string; // Get the data URL of the file
-
+          const imgDataURL = reader.result as string;
           dispatch(
             updatePersonalDetails({
               ...personalDetailsState,
               photo: imgDataURL,
             })
           );
-          // Set the image data URL
         };
-        reader.readAsDataURL(imgFile); // Read the file as a data URL
+        reader.readAsDataURL(imgFile);
       } catch (error) {
         console.error("Error fetching image:", error);
       }
@@ -47,8 +67,8 @@ function PersonalDetailsForm() {
   };
 
   const nextForm = (values: PersonalDetailsProps) => {
-    console.log("next");
     dispatch(updatePersonalDetails(values));
+    router.push("/features/resume/experience");
   };
 
   return (
@@ -92,11 +112,8 @@ function PersonalDetailsForm() {
                   selectName="code"
                   label="Phone"
                   options={codes.map((code, index) => (
-                    <option key={index}>
-                      <span>
-                        {code.country} {""}
-                      </span>
-                      <span>+{code.countryCodes[0]}</span>
+                    <option key={index} value={`+${code.countryCodes[0]}`}>
+                      {code.country} +{code.countryCodes[0]}
                     </option>
                   ))}
                 />
@@ -108,7 +125,9 @@ function PersonalDetailsForm() {
                     type="select"
                     label="Country"
                     options={codes.map((code, index) => (
-                      <option key={index}>{code.country}</option>
+                      <option key={index} value={code.country}>
+                        {code.country}
+                      </option>
                     ))}
                   />
                 </div>
@@ -131,20 +150,56 @@ function PersonalDetailsForm() {
               <div>
                 <CustomInput name="email" type="text" label="Email Address" />
               </div>
-              <div className="flex gap-5">
-                <div className="w-1/2">
-                  <CustomInput name="linkedIn" type="text" label="LinkedIn" />
-                </div>
-                <div className="w-1/2">
-                  <CustomInput name="twitter" type="text" label="Twitter" />
-                </div>
+              <div className="flex gap-5 flex-wrap">
+                {showDeletableInput.linkedin ||
+                  (personalDetailsState.linkedin && (
+                    <div className="w-[48%]">
+                      <CustomDeletableInput
+                        name="linkedin"
+                        type="text"
+                        label="LinkedIn"
+                        onDeleteBtnClick={() =>
+                          setShowDeletableInput((prevState) => ({
+                            ...prevState,
+                            linkedIn: false,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                {showDeletableInput.twitter ||
+                  (personalDetailsState.twitter && (
+                    <div className="w-[48%]">
+                      <CustomDeletableInput
+                        name="twitter"
+                        type="text"
+                        label="Twitter"
+                        onDeleteBtnClick={() =>
+                          setShowDeletableInput((prevState) => ({
+                            ...prevState,
+                            twitter: false,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                {showDeletableInput.website ||
+                  (personalDetailsState.website && (
+                    <div className="w-[48%]">
+                      <CustomDeletableInput
+                        name="website"
+                        type="text"
+                        label="Website"
+                        onDeleteBtnClick={() =>
+                          setShowDeletableInput((prevState) => ({
+                            ...prevState,
+                            website: false,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
               </div>
-              <div className="flex gap-5">
-                <div className="w-1/2">
-                  <CustomInput name="website" type="text" label="Website" />
-                </div>
-              </div>
-
               <div className="flex gap-5 my-5">
                 <CustomButton
                   text="Back"
@@ -157,6 +212,18 @@ function PersonalDetailsForm() {
             </div>
           </Form>
         </Formik>
+        <div className="flex flex-wrap gap-3">
+          {deletableInputs.map((item, index) => (
+            <div key={index}>
+              {!showDeletableInput[item] && !personalDetailsState[item] && (
+                <CustomAddButton
+                  label={item}
+                  onClick={() => addBtnClickHandler(item)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

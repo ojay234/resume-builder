@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
 import CompanyInfo from "../forms/CompanyInfo";
 import {
@@ -14,6 +15,7 @@ import CustomAddButton from "@/components/common/CustomAddButton";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
 import initialResumeFormValues from "../forms/models/initialResumeFormValues";
+import CustomButton from "@/components/common/CustomButton";
 
 // Utility function to convert <ul> to array of <li> inner HTML
 const ulToArray = (htmlContent: string) => {
@@ -33,6 +35,7 @@ const ulToArray = (htmlContent: string) => {
 
 function ExperienceSummary() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const experience = useAppSelector((state) => state.experience);
   const experiences = useAppSelector((state) => state.experiences);
   const [showExperience, setShowExperience] = useState(false);
@@ -115,6 +118,14 @@ function ExperienceSummary() {
     return `${month}-${year}`;
   };
 
+  const previousForm = () => {
+    router.push("/features/resume/personal-details");
+  };
+
+  const nextForm = () => {
+    router.push("/features/resume/education");
+  };
+
   return (
     <div className="w-full bg-[#f6f6f6] pr-10 pl-16 py-6">
       <h1 className="font-bold text-[24px]">Experience</h1>
@@ -132,57 +143,65 @@ function ExperienceSummary() {
                   Add more experience
                 </button>
               </div>
-              {experiences.map((experience, index) => (
+              {experiences.map((exp, index) => (
                 <div
                   className="border-2 border-gray-400 rounded-lg p-4 bg-white"
                   key={index}
                 >
                   <div className="flex justify-between ">
                     <div className="flex flex-col">
-                      <h1>{experience.jobTitle}</h1>
+                      <h1>{exp.jobTitle}</h1>
                       <p>
-                        <span>{experience.company}</span>{" "}
-                        <span>{experience.country}</span>{" "}
+                        <span>{exp.company}</span> <span>{exp.country}</span>{" "}
                       </p>
                     </div>
                     <div className="flex gap-3 items-center">
                       <button
                         className="text-white bg-black rounded-full p-2"
-                        onClick={() => handleEditExperience(experience.id)}
+                        onClick={() => handleEditExperience(exp.id)}
                       >
                         <MdModeEdit />
                       </button>
                       <button
                         className="text-white bg-black rounded-full p-2"
-                        onClick={() => handleDeleteExperience(experience.id)}
+                        onClick={() => handleDeleteExperience(exp.id)}
                       >
                         <MdDelete />
                       </button>
                     </div>
                   </div>
                   <p>
-                    <span>{formatDate(experience.startDate)}</span>{" "}
-                    <span>{formatDate(experience.endDate)}</span>
+                    <span>{formatDate(exp.startDate)}</span>{" "}
+                    <span>{formatDate(exp.endDate)}</span>
                   </p>
                   <div
                     className={
-                      findVisibleTextsId(experience.id)
+                      findVisibleTextsId(exp.id)
                         ? ""
                         : "h-[30px] overflow-hidden"
                     }
                   >
-                    {ulToArray(experience.experience).map((item, index) => (
+                    {ulToArray(exp.experience).map((item, index) => (
                       <p key={index}>{item}</p>
                     ))}
                   </div>
                   <button
                     className="flex gap-2 text-gray-500 font-bold text-xl"
-                    onClick={() => showMoreText(experience.id)}
+                    onClick={() => showMoreText(exp.id)}
                   >
                     show More
                   </button>
                 </div>
               ))}
+              <div className="flex gap-5 my-5">
+                <CustomButton
+                  text="Back"
+                  clicked={previousForm}
+                  color="transparent"
+                  width="100%"
+                />
+                <CustomButton text="Continue" width="100%" clicked={nextForm} />
+              </div>
             </div>
           ) : (
             <CustomAddButton

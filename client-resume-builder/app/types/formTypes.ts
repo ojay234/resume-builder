@@ -4,6 +4,11 @@ export type resumeFormProps = {
   personalDetails: PersonalDetailsProps;
   experience: experienceProps;
   experiences: experienceProps[];
+  education: educationProps;
+  educationList: educationProps[];
+  certificate: certificateProps;
+  certificates: certificateProps[];
+  skills: string[];
 };
 
 export type PersonalDetailsProps = {
@@ -19,7 +24,7 @@ export type PersonalDetailsProps = {
   zipCode: string;
   email: string;
   website: string;
-  linkedIn: string;
+  linkedin: string;
   twitter: string;
 };
 
@@ -35,6 +40,19 @@ export type experienceProps = {
   experience: string;
 };
 
-// export type experiencesProps = {
-//   company: experienceProps[];
-// };
+export type educationProps = {
+  id: number | null;
+  schoolName: string;
+  location: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: string;
+  endDate: string;
+};
+
+export type certificateProps = {
+  id: number | null;
+  name: string;
+  link: string;
+};
+

@@ -16,7 +16,7 @@ const initialResumeFormValues: resumeFormProps = {
     state: "",
     zipCode: "",
     email: "",
-    linkedIn: "",
+    linkedin: "",
     website: "",
     twitter: "",
   },
@@ -32,6 +32,23 @@ const initialResumeFormValues: resumeFormProps = {
     experience: "",
   },
   experiences: [],
+  education: {
+    id: null,
+    schoolName: "",
+    location: "",
+    degree: "",
+    fieldOfStudy: "",
+    startDate: "",
+    endDate: "",
+  },
+  educationList: [],
+  certificate: {
+    id: null,
+    name: "",
+    link: "",
+  },
+  certificates: [],
+  skills: []
 };
 
 export default initialResumeFormValues;
