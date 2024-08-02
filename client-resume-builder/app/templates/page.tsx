@@ -1,44 +1,38 @@
 "use client";
+import ReactDOMServer from "react-dom/server";
 import React, { useEffect, useState } from "react";
-import CustomButton from "@/components/common/custom-button";
-import TemplateOne from "@/components/page-sections/templates/template-one";
+import { ServerStyleSheet } from "styled-components";
+import CustomButton from "@/components/common/CustomButton";
+import TemplateOne from "@/templates/template-one";
 import { sendResume } from "@/api/sendResume";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 
 function Template() {
-  const [imageSrc, setImageSrc] = useState<string>("");
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      try {
-        // Convert the image to a data URL
-        const imgFile = await fetch("./assets/templates/profile.jpg");
-        const imgData = await imgFile.blob();
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          const imgDataURL = reader.result as string;
-          setImageSrc(imgDataURL); // Set the image data URL
-        };
-        reader.readAsDataURL(imgData);
-      } catch (error) {
-        console.error("Error fetching image:", error);
-      }
-    };
-
-    fetchImage();
-  }, []);
-
-  const html = TemplateOne({ imageSrc });
   const handleGeneratePDF = async () => {
     // Render the TemplateOne component to an HTML string
-    const templateHtml = html
-   
-    const templateCss = ""; // If you need to pass additional CSS, you can add it here
+    const sheet = new ServerStyleSheet();
 
     try {
+      const templateHtml = ReactDOMServer.renderToString(
+        sheet.collectStyles(
+          <Provider store={store}>
+            <TemplateOne />
+          </Provider>
+        )
+      );
+
+      // Extract the CSS from the sheet
+      const templateCss = sheet.getStyleTags(); // or sheet.getStyleElements() for React elements
+
+      console.log(templateHtml, "templateOne");
+      console.log(templateCss, "templateCss");
+
       const pdfData = await sendResume({
         html: templateHtml,
         css: templateCss,
       });
+
       // Handle the PDF data, e.g., trigger a download
       const blob = new Blob([pdfData]);
       const url = window.URL.createObjectURL(blob);
@@ -60,6 +54,9 @@ function Template() {
       </h1>
 
       <CustomButton text="generate resume" clicked={handleGeneratePDF} />
+      <div className="mt-10">
+        <TemplateOne />
+      </div>
     </div>
   );
 }

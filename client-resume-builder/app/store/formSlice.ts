@@ -8,7 +8,6 @@ export const formSlice = createSlice({
   reducers: {
     updatePersonalDetails: (state, action) => {
       state.personalDetails = { ...state.personalDetails, ...action.payload };
-      console.log(state.personalDetails);
     },
     updateExperience: (state, action) => {
       state.experience = { ...state.experience, ...action.payload };
@@ -43,6 +42,12 @@ export const formSlice = createSlice({
     setCertificatesState: (state, action) => {
       state.certificates = action.payload;
     },
+    setSkillsState: (state, action) => {
+      state.skills = action.payload;
+    },
+    setSummaryState: (state, action) => {
+      state.summary = action.payload;
+    },
   },
 });
 
@@ -58,7 +63,9 @@ export const {
   updateEducationList,
   updateCertificates,
   setCertificateState,
-  setCertificatesState
+  setCertificatesState,
+  setSkillsState,
+  setSummaryState,
 } = formSlice.actions;
 
 export default formSlice.reducer;

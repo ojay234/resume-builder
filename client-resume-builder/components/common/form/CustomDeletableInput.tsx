@@ -20,7 +20,7 @@ function CustomDeletableInput({
       <label>{label}</label>
       <div className="flex w-full items-center">
         <Field name={name} type={type} />
-        <button onClick={onDeleteBtnClick} className="absolute right-2">
+        <button onClick={onDeleteBtnClick} className="absolute right-2" type="button" >
           <RiDeleteBin6Line size="1.2rem" />
         </button>
       </div>

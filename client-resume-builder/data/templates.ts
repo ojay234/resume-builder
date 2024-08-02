@@ -1,24 +1,23 @@
 import profTemImg from "../assets/images/resume-png.png";
+import TemplateOne from "@/templates/template-one";
 
 const templates = [
   {
-    name: "prof-tem",
+    id: 1,
+    name: "prof-temp",
+    component: TemplateOne,
     imgSrc: profTemImg,
   },
   {
-    name: "prof-tem",
+    id: 2,
+    name: "prof-temp",
+    component: TemplateOne,
     imgSrc: profTemImg,
   },
   {
-    name: "prof-tem",
-    imgSrc: profTemImg,
-  },
-  {
-    name: "prof-tem",
-    imgSrc: profTemImg,
-  },
-  {
-    name: "prof-tem",
+    id: 3,
+    name: "prof-temp",
+    component: TemplateOne,
     imgSrc: profTemImg,
   },
 ];

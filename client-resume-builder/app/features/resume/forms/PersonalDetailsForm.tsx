@@ -47,13 +47,8 @@ function PersonalDetailsForm() {
       try {
         const reader = new FileReader();
         reader.onload = function () {
-          const imgDataURL = reader.result as string;
-          dispatch(
-            updatePersonalDetails({
-              ...personalDetailsState,
-              photo: imgDataURL,
-            })
-          );
+          const photo = reader.result as string;
+          dispatch(updatePersonalDetails({ photo: photo }));
         };
         reader.readAsDataURL(imgFile);
       } catch (error) {
@@ -67,7 +62,7 @@ function PersonalDetailsForm() {
   };
 
   const nextForm = (values: PersonalDetailsProps) => {
-    dispatch(updatePersonalDetails(values));
+    dispatch(updatePersonalDetails({ ...values }));
     router.push("/features/resume/experience");
   };
 

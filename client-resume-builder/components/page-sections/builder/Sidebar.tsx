@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { CgWorkAlt } from "react-icons/cg";
@@ -11,11 +11,19 @@ import { IoIosLink } from "react-icons/io";
 import { BsBookmarkCheck } from "react-icons/bs";
 import { Progress } from "antd";
 import styled from "styled-components";
+import templates from "@/data/templates";
 
 function Sidebar() {
   const path = usePathname();
   const router = useRouter();
   const [activeButton, setActiveButton] = useState("");
+  const [activeTemplateIndex, setActiveTemplateIndex] = useState(1);
+
+  const activeTemplate = templates.find(
+    (temp) => temp.id === activeTemplateIndex
+  );
+
+  console.log(activeTemplate);
 
   useEffect(() => {
     const pathArray = path.split("/");
@@ -93,6 +101,9 @@ function Sidebar() {
           </StyledButton>
         ))}
       </div>
+      <div className="template-container">
+        {activeTemplate && <activeTemplate.component />}
+      </div>
 
       <Progress percent={progress} />
     </SidebarContainer>
@@ -103,6 +114,22 @@ const SidebarContainer = styled.div`
   height: calc(100vh - 60px);
   position: fixed;
   overflow: hidden !important;
+
+  .template-container {
+    width: 70%;
+    height: 180px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.16);
+    padding: 2px 5px;
+    border-radius: 8px;
+  }
+
+  .template-container > * {
+    transform: scale(0.3);
+    width: 100%;
+    transform-origin: top left;
+  }
 `;
 
 const StyledButton = styled.button<{ activated: boolean }>`

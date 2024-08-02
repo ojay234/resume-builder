@@ -8,8 +8,8 @@ const app = express();
 const port = 4000;
 
 // Middleware to parse JSON and urlencoded bodies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 
 // Add CORS middleware
 app.use(cors());
@@ -18,7 +18,6 @@ app.use(cors());
 app.post("/generate-pdf", async (req, res) => {
   try {
     const { html, css } = req.body;
-  
 
     // // Generate a temporary HTML file with the provided HTML/CSS content
     // const htmlFilePath = "./temp/template.html";
@@ -33,7 +32,7 @@ app.post("/generate-pdf", async (req, res) => {
     // });
 
     // Inject CSS into the page content
-    await page.setContent(`<style>${css}</style>${html}`);
+    await page.setContent(`${css}${html}`);
 
     const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
     await browser.close();

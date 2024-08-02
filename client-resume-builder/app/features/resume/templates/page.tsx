@@ -1,3 +1,4 @@
+"use client";
 import templates from "@/data/templates";
 import Image from "next/image";
 import Link from "next/link";

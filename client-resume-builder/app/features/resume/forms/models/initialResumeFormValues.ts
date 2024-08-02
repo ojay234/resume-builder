@@ -48,7 +48,8 @@ const initialResumeFormValues: resumeFormProps = {
     link: "",
   },
   certificates: [],
-  skills: []
+  skills: [],
+  summary: "",
 };
 
 export default initialResumeFormValues;

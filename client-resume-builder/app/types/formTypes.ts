@@ -9,6 +9,7 @@ export type resumeFormProps = {
   certificate: certificateProps;
   certificates: certificateProps[];
   skills: string[];
+  summary: string;
 };
 
 export type PersonalDetailsProps = {
@@ -55,4 +56,3 @@ export type certificateProps = {
   name: string;
   link: string;
 };
-

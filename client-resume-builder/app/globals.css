@@ -16,7 +16,6 @@ body {
       fill: #4a4a4a;
       letter-spacing: .16px;
       font-weight: 400;
-      line-height: 2.6rem;
 }
 
 @layer utilities {

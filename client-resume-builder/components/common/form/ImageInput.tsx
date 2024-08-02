@@ -17,6 +17,8 @@ function ImageInput({ image, imageChangeHandler }: ImageInputProps) {
     attachmentUploadRef?.current?.click();
   };
 
+
+
   return (
     <div className="flex gap-7 items-center mt-8 ">
       <div>
