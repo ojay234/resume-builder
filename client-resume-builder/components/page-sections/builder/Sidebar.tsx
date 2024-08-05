@@ -34,9 +34,9 @@ function Sidebar() {
 
   const handleButtonClick = (id: string) => {
     if (id === "personal-details") {
-      router.push("/features/resume/personal-details");
+      router.push("/features/resume/builder/personal-details");
     } else {
-      router.push(`/features/resume/${id}`);
+      router.push(`/features/resume/builder/${id}`);
     }
   };
 
@@ -101,9 +101,13 @@ function Sidebar() {
           </StyledButton>
         ))}
       </div>
-      <div className="template-container">
-        {activeTemplate && <activeTemplate.component />}
-      </div>
+      {activeTemplate && (
+        <div className="template-container">
+          <div className="template">
+            <activeTemplate.component />
+          </div>
+        </div>
+      )}
 
       <Progress percent={progress} />
     </SidebarContainer>
@@ -116,19 +120,20 @@ const SidebarContainer = styled.div`
   overflow: hidden !important;
 
   .template-container {
-    width: 70%;
     height: 180px;
-    display: flex;
+    width: 210px;
     overflow: hidden;
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.16);
     padding: 2px 5px;
     border-radius: 8px;
-  }
+    position: relative;
 
-  .template-container > * {
-    transform: scale(0.3);
-    width: 100%;
-    transform-origin: top left;
+    .template {
+      position: absolute;
+      width: 900px;
+      transform: scale(0.2);
+      transform-origin: top left;
+    }
   }
 `;
 

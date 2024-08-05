@@ -30,6 +30,7 @@ const initialResumeFormValues: resumeFormProps = {
     startDate: "",
     endDate: "",
     experience: "",
+    present: false,
   },
   experiences: [],
   education: {

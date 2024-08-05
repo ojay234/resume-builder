@@ -1,4 +1,4 @@
-import PersonalDetails from "../features/resume/personal-details/page";
+import PersonalDetails from "../features/resume/builder/personal-details/page";
 
 export type resumeFormProps = {
   personalDetails: PersonalDetailsProps;
@@ -39,6 +39,7 @@ export type experienceProps = {
   startDate: string;
   endDate: string;
   experience: string;
+  present: boolean;
 };
 
 export type educationProps = {

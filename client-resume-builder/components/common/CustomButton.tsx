@@ -26,7 +26,7 @@ const StyledButton = styled.button<{ color?: string; width?: string }>`
   background-color: ${(props) => props.color || "#2b2d2f"};
   color: ${(props) => (props.color !== "transparent" ? "white" : "#404245")};
   border-radius: 6px;
-  padding: 2px 15px;
+  padding: 6px 15px;
   text-align: center;
   width: ${(props) => props.width};
   border: ${(props) =>

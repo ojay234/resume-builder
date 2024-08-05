@@ -12,9 +12,9 @@ import { certificateProps } from "@/app/types/formTypes";
 import CustomAddButton from "@/components/common/CustomAddButton";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
-import initialResumeFormValues from "../forms/models/initialResumeFormValues";
-import EducationForm from "../forms/EducationForm";
-import CertificateForm from "../forms/CertificateForm";
+import initialResumeFormValues from "../../forms/models/initialResumeFormValues";
+import EducationForm from "../../forms/EducationForm";
+import CertificateForm from "../../forms/CertificateForm";
 import CustomButton from "@/components/common/CustomButton";
 
 function CertificateSummary() {
@@ -70,15 +70,15 @@ function CertificateSummary() {
   };
 
   const previousForm = () => {
-    router.push("/features/resume/certifications");
+    router.push("/features/resume/builder/certifications");
   };
 
   const nextForm = () => {
-    router.push("/features/resume/skills");
+    router.push("/features/resume/builder/skills");
   };
 
   return (
-    <div className="w-full bg-[#f6f6f6] pr-10 pl-16 py-6">
+    <div className="w-[60%]">
       <h1 className="font-bold text-[24px]">Education Summary</h1>
       <p>Add, edit, or delete your Education</p>
       {!showCertificateForm && (
@@ -100,9 +100,9 @@ function CertificateSummary() {
                   key={index}
                 >
                   <div className="flex justify-between ">
-                    <div className="flex flex-col gap-0">
+                    <div className="flex flex-col gap-2">
                       <h1>{cert.name}</h1>
-                      <p className="-mt-3">{cert.link}</p>
+                      <p className="text-xs">{cert.link}</p>
                     </div>
                     <div className="flex gap-3 items-center">
                       <button

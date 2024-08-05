@@ -9,7 +9,7 @@ interface AddBtnProps {
 function CustomAddButton({ label, onClick }: AddBtnProps) {
   return (
     <button
-      className="flex items-center gap-2 rounded-3xl border-2 border-gray-400 px-5 font-bold py-1.5"
+      className="flex items-center gap-2 rounded-3xl border-2 border-gray-400 px-5 font-bold py-3"
       onClick={onClick}
     >
       <span>

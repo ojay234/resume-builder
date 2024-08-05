@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
-import CompanyInfo from "../forms/CompanyInfo";
+import CompanyInfo from "../../forms/CompanyInfo";
 import {
   setExperiencesState,
   setExperienceState,
@@ -10,11 +10,11 @@ import {
   updateExperiences,
 } from "@/app/store/formSlice";
 import { experienceProps } from "@/app/types/formTypes";
-import ExperienceForm from "../forms/ExperienceForm";
+import ExperienceForm from "../../forms/ExperienceForm";
 import CustomAddButton from "@/components/common/CustomAddButton";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
-import initialResumeFormValues from "../forms/models/initialResumeFormValues";
+import initialResumeFormValues from "../../forms/models/initialResumeFormValues";
 import CustomButton from "@/components/common/CustomButton";
 
 // Utility function to convert <ul> to array of <li> inner HTML
@@ -119,15 +119,24 @@ function ExperienceSummary() {
   };
 
   const previousForm = () => {
-    router.push("/features/resume/personal-details");
+    router.push("/features/resume/builder/personal-details");
   };
 
   const nextForm = () => {
-    router.push("/features/resume/education");
+    router.push("/features/resume/builder/education");
+  };
+
+  const exitCompanyForm = () => {
+    setShowCompanyInfo(false);
+  };
+
+  const exitExperienceForm = () => {
+    setShowExperience(false);
+    setShowCompanyInfo(true);
   };
 
   return (
-    <div className="w-full bg-[#f6f6f6] pr-10 pl-16 py-6">
+    <div className="md:w-[60%] ">
       <h1 className="font-bold text-[24px]">Experience</h1>
       <p>Add, edit, or delete your work experience</p>
       {!showCompanyInfo && !showExperience && (
@@ -204,21 +213,29 @@ function ExperienceSummary() {
               </div>
             </div>
           ) : (
-            <CustomAddButton
-              label="Add work experience"
-              onClick={() => updateUI("companyInfo")}
-            />
+            <div className="mt-5">
+              <CustomAddButton
+                label="Add work experience"
+                onClick={() => updateUI("companyInfo")}
+              />
+            </div>
           )}
         </div>
       )}
       {!showExperience && showCompanyInfo && (
         <div>
-          <CompanyInfo updateCompanyInfo={updateCompanyInfo} />
+          <CompanyInfo
+            updateCompanyInfo={updateCompanyInfo}
+            exitCompanyForm={exitCompanyForm}
+          />
         </div>
       )}
       {showExperience && !showCompanyInfo && (
         <div>
-          <ExperienceForm updateExperienceInfo={updateExperienceInfo} />
+          <ExperienceForm
+            updateExperienceInfo={updateExperienceInfo}
+            exitExperienceForm={exitExperienceForm}
+          />
         </div>
       )}
     </div>

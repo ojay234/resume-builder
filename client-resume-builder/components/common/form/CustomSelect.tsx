@@ -28,7 +28,7 @@ const StyledInputContainer = styled.div`
   select {
     border-radius: 5px;
     width: 100%;
-    padding: 12px 20px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     outline: none;
   }

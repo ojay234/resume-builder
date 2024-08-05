@@ -1,48 +1,44 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomButton from "@/components/common/CustomButton";
-import CustomInput from "@/components/common/form/CustomInput";
-import CustomSelect from "@/components/common/form/CustomSelect";
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
-import codes from "country-calling-code";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import { experienceProps } from "@/app/types/formTypes";
-import { updateExperience } from "@/app/store/formSlice";
 import styled from "styled-components";
 
-interface updateExperienceInfoProps {
+interface UpdateExperienceInfoProps {
   updateExperienceInfo: (values: experienceProps) => void;
+  exitExperienceForm: () => void;
 }
 
-function ExperienceForm({ updateExperienceInfo }: updateExperienceInfoProps) {
+function ExperienceForm({
+  updateExperienceInfo,
+  exitExperienceForm,
+}: UpdateExperienceInfoProps) {
   const experienceState = useAppSelector((state) => state.experience);
-  const quillRef = useRef(null);
+  const quillRef = useRef<ReactQuill | null>(null);
   const dispatch = useAppDispatch();
 
-  console.log(experienceState.experience, "quillBot");
-
-  const previousForm = () => {
-    console.log("previous");
-  };
+  // Set initial content with bullet point
+  const [editorContent, setEditorContent] = useState(() => {
+    return experienceState.experience || "<ul><li><br></li></ul>";
+  });
 
   useEffect(() => {
     if (quillRef.current) {
       const quill = quillRef.current.getEditor();
-      const toolbar = quill.getModule("toolbar");
-
-      // Set up default list format
-      quill.on("text-change", (delta, oldDelta, source) => {
-        if (source === "user") {
-          const currentFormat = quill.getFormat(quill.getSelection());
-          if (!currentFormat["list"]) {
-            quill.format("list", "bullet");
+      quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+        delta.ops.forEach((op) => {
+          if (op.insert && typeof op.insert === "string") {
+            op.attributes = op.attributes || {};
+            op.attributes.list = "bullet";
           }
-        }
+        });
+        return delta;
       });
     }
-  }, [quillRef]);
+  }, []);
 
   return (
     <ExperienceFormContainer>
@@ -50,18 +46,19 @@ function ExperienceForm({ updateExperienceInfo }: updateExperienceInfoProps) {
         <p>{experienceState.jobTitle}</p>
         <p>{experienceState.company}</p>
       </div>
-      <div className="">
+      <div>
         <Formik initialValues={experienceState} onSubmit={updateExperienceInfo}>
-          {({ setFieldValue, values }) => (
+          {({ setFieldValue }) => (
             <Form>
-              <div className="">
+              <div>
                 <label htmlFor="experienceText">Experience</label>
                 <ReactQuill
                   ref={quillRef}
                   theme="snow"
-                  value={values.experience}
+                  value={editorContent}
                   onChange={(content) => {
                     setFieldValue("experience", content);
+                    setEditorContent(content);
                   }}
                   modules={{
                     toolbar: [[{ list: "bullet" }]],
@@ -70,7 +67,7 @@ function ExperienceForm({ updateExperienceInfo }: updateExperienceInfoProps) {
                 <div className="flex gap-5 my-5">
                   <CustomButton
                     text="Back"
-                    clicked={previousForm}
+                    clicked={exitExperienceForm}
                     color="transparent"
                     width="100%"
                   />
@@ -92,7 +89,6 @@ const ExperienceFormContainer = styled.div`
   }
   .ql-toolbar {
     border: 2px solid #d6d6d6; /* Custom border */
-    /* border-bottom: none; Remove bottom border to connect with container  */
     border-radius: 8px 8px 0 0; /* Optional: rounded top corners */
   }
 `;

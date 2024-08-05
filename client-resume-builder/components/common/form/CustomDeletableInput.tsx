@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import {  RiDeleteBin6Line } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import styled from "styled-components";
 
 interface CustomInputProps {
@@ -20,7 +20,11 @@ function CustomDeletableInput({
       <label>{label}</label>
       <div className="flex w-full items-center">
         <Field name={name} type={type} />
-        <button onClick={onDeleteBtnClick} className="absolute right-2" type="button" >
+        <button
+          onClick={onDeleteBtnClick}
+          className="absolute right-2"
+          type="button"
+        >
           <RiDeleteBin6Line size="1.2rem" />
         </button>
       </div>
@@ -37,7 +41,7 @@ const StyledInputContainer = styled.div`
   input {
     border-radius: 5px;
     width: 100%;
-    padding: 2px 30px 2px 20px;
+    padding: 6px 30px 6px 10px;
     border: 1px solid #ccc;
     outline: none;
   }

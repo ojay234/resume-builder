@@ -3,12 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Form, Formik } from "formik";
 import CustomButton from "@/components/common/CustomButton";
-
 import { useAppDispatch, useAppSelector } from "@/app/hooks/redux-hooks";
-
-import "react-quill/dist/quill.snow.css";
-import ReactQuill from "react-quill";
-
 import styled from "styled-components";
 import { setSummaryState } from "@/app/store/formSlice";
 import initialResumeFormValues from "./models/initialResumeFormValues";
@@ -16,12 +11,13 @@ import { resumeFormProps } from "@/app/types/formTypes";
 
 function SummaryForm() {
   const router = useRouter();
-
   const dispatch = useAppDispatch();
+
+  const formState = useAppSelector((state) => state);
 
   const updateSummary = (values: resumeFormProps) => {
     dispatch(setSummaryState(values.summary));
-    router.push("/features/resume/summary");
+    // router.push("/features/resume/summary");
   };
 
   const previousForm = () => {
@@ -29,26 +25,19 @@ function SummaryForm() {
   };
 
   return (
-    <SummaryFormContainer className="pr-10 pl-16 py-6">
+    <SummaryFormContainer className="w-[60%]">
       <div className="">
-        <Formik
-          initialValues={initialResumeFormValues}
-          onSubmit={updateSummary}
-        >
+        <Formik initialValues={formState} onSubmit={updateSummary}>
           {({ setFieldValue, values }) => (
             <Form>
-              <div className="">
+              <div className="flex flex-col gap-3">
                 <label htmlFor="SummaryText">Summary</label>
-                <ReactQuill
-                  theme="snow"
+                <textarea
                   value={values.summary}
-                  onChange={(content) => {
-                    console.log(content);
-                    setFieldValue("summary", content);
+                  onChange={(e) => {
+                    setFieldValue("summary", e.target.value);
                   }}
-                  modules={{
-                    toolbar: [["bold"]],
-                  }}
+                  className="min-h-[40vh] px-3 py-4"
                 />
                 <div className="flex gap-5 my-5">
                   <CustomButton

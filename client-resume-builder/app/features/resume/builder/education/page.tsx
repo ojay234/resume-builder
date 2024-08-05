@@ -4,11 +4,8 @@ import EducationSummary from "./EducationSummary";
 
 function EducationPage() {
   return (
-    <div className="flex gap-2">
-      <Sidebar />
-      <div className="md:ml-[20%] w-full">
-        <EducationSummary />
-      </div>
+    <div>
+      <EducationSummary />
     </div>
   );
 }

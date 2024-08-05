@@ -14,7 +14,7 @@ function page() {
             key={index}
             className="cusor-pointer hover:border-2 border-gray-500 w-fit"
           >
-            <Link href="/features/resume/personal-details">
+            <Link href="/features/resume/builder/personal-details">
               <Image
                 src={temp.imgSrc}
                 width={400}

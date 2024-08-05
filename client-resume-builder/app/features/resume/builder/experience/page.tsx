@@ -4,11 +4,8 @@ import ExperienceSummary from "./ExperienceSummary";
 
 function ExperiencePage() {
   return (
-    <div className="flex gap-2">
-      <Sidebar />
-      <div className="md:ml-[20%] w-full">
-        <ExperienceSummary />
-      </div>
+    <div>
+      <ExperienceSummary />
     </div>
   );
 }

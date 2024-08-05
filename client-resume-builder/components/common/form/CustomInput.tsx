@@ -5,11 +5,12 @@ interface CustomInputProps {
   name: string;
   type: string;
   label: string;
+  className?: string;
 }
 
-function CustomInput({ name, type, label }: CustomInputProps) {
+function CustomInput({ name, type, label, className }: CustomInputProps) {
   return (
-    <StyledInputContainer>
+    <StyledInputContainer className={className}>
       <label>{label}</label>
       <Field name={name} type={type} />
     </StyledInputContainer>
@@ -24,7 +25,7 @@ const StyledInputContainer = styled.div`
   input {
     border-radius: 5px;
     width: 100%;
-    padding: 2px 20px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     outline: none;
   }

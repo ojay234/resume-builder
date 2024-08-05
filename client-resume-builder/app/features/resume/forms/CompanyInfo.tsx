@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/form/CustomInput";
@@ -14,15 +14,20 @@ import styled from "styled-components";
 
 interface updateCompanyInfoProps {
   updateCompanyInfo: (values: experienceProps) => void;
+  exitCompanyForm: () => void;
 }
 
-function CompanyInfo({ updateCompanyInfo }: updateCompanyInfoProps) {
-  const experienceState = useAppSelector((state) => state.experience);
+function CompanyInfo({
+  updateCompanyInfo,
+  exitCompanyForm,
+}: updateCompanyInfoProps) {
   const dispatch = useAppDispatch();
+  const experienceState = useAppSelector((state) => state.experience);
+  const [checkPresent, setCheckPresent] = useState<boolean>(false);
 
-  const previousForm = () => {
-    console.log("previous");
-  };
+  useEffect(() => {
+    setCheckPresent(experienceState.present);
+  }, []);
 
   return (
     <div>
@@ -77,20 +82,36 @@ function CompanyInfo({ updateCompanyInfo }: updateCompanyInfoProps) {
                     showMonthYearPicker
                   />
                 </StyledDateContainer>
-                <StyledDateContainer className="w-1/2 ">
-                  <label>End Date</label>
-                  <DatePicker
-                    selected={values.endDate ? new Date(values.endDate) : null}
-                    onChange={(date) => setFieldValue("endDate", date)}
-                    dateFormat="MM/yyyy"
-                    showMonthYearPicker
-                  />
-                </StyledDateContainer>
+                {!checkPresent && (
+                  <StyledDateContainer className="w-1/2 ">
+                    <label>End Date</label>
+                    <DatePicker
+                      selected={
+                        values.endDate ? new Date(values.endDate) : null
+                      }
+                      onChange={(date) => setFieldValue("endDate", date)}
+                      dateFormat="MM/yyyy"
+                      showMonthYearPicker
+                    />
+                  </StyledDateContainer>
+                )}
+              </div>
+              <div className="flex gap-3 items-center text-sm">
+                <input
+                  type="checkbox"
+                  checked={checkPresent}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setCheckPresent(checked);
+                    setFieldValue("present", checked);
+                  }}
+                />
+                <span>Currently Work here</span>
               </div>
               <div className="flex gap-5 my-5">
                 <CustomButton
                   text="Back"
-                  clicked={previousForm}
+                  clicked={exitCompanyForm}
                   color="transparent"
                   width="100%"
                 />
@@ -116,9 +137,16 @@ const StyledDateContainer = styled.div`
   input {
     border-radius: 5px;
     width: 100%;
-    padding: 2px 20px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     outline: none;
   }
 `;
+
+// const StyledCheckBox = styled.div`
+//   display: inline-flex;
+//   align-items: center;
+//   gap: 10px;
+//   font-size: 12px;
+// `;
 export default CompanyInfo;

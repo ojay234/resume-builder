@@ -17,8 +17,6 @@ function ImageInput({ image, imageChangeHandler }: ImageInputProps) {
     attachmentUploadRef?.current?.click();
   };
 
-
-
   return (
     <div className="flex gap-7 items-center mt-8 ">
       <div>
@@ -58,7 +56,7 @@ const StyledInputContainer = styled.div`
   }
   button {
     font-size: 14px;
-    padding: 0 5px !important;
+    padding: 5px !important;
   }
 `;
 

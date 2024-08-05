@@ -13,8 +13,8 @@ import { educationProps } from "@/app/types/formTypes";
 import CustomAddButton from "@/components/common/CustomAddButton";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
-import initialResumeFormValues from "../forms/models/initialResumeFormValues";
-import EducationForm from "../forms/EducationForm";
+import initialResumeFormValues from "../../forms/models/initialResumeFormValues";
+import EducationForm from "../../forms/EducationForm";
 import CustomButton from "@/components/common/CustomButton";
 
 function EducationSummary() {
@@ -79,15 +79,15 @@ function EducationSummary() {
   };
 
   const previousForm = () => {
-    router.push("/features/resume/experience");
+    router.push("/features/resume/builder/experience");
   };
 
   const nextForm = () => {
-    router.push("/features/resume/certifications");
+    router.push("/features/resume/builder/certifications");
   };
 
   return (
-    <div className="w-full bg-[#f6f6f6] pr-10 pl-16 py-6">
+    <div className="w-[60%]">
       <h1 className="font-bold text-[24px]">Education Summary</h1>
       <p>Add, edit, or delete your Education</p>
       {!showEducationForm && (
@@ -109,9 +109,9 @@ function EducationSummary() {
                   key={index}
                 >
                   <div className="flex justify-between ">
-                    <div className="flex flex-col gap-0">
+                    <div className="flex flex-col gap-2">
                       <h1>{edu.schoolName}</h1>
-                      <p className="-mt-3">{edu.location}</p>
+                      <p className="text-sm">{edu.location}</p>
                       <p>
                         <span>{edu.fieldOfStudy}</span>
                         <span>
