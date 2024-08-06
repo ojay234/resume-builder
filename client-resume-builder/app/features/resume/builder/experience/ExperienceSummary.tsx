@@ -16,22 +16,7 @@ import { MdDelete, MdModeEdit } from "react-icons/md";
 import { FiPlusCircle } from "react-icons/fi";
 import initialResumeFormValues from "../../forms/models/initialResumeFormValues";
 import CustomButton from "@/components/common/CustomButton";
-
-// Utility function to convert <ul> to array of <li> inner HTML
-const ulToArray = (htmlContent: string) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlContent, "text/html");
-  const ulElement = doc.querySelector("ul");
-  if (!ulElement) {
-    return [];
-  }
-
-  const liElements = ulElement.querySelectorAll("li");
-  const liArray = Array.from(liElements).map((li) => li.innerHTML);
-  console.log("List Items Array: ", liArray); // Debugging log
-
-  return liArray;
-};
+import { ulToArray } from "@/utils/methods";
 
 function ExperienceSummary() {
   const dispatch = useAppDispatch();

@@ -5,6 +5,7 @@ import { FaLinkedinIn, FaPhone } from "react-icons/fa";
 import { BsCursorFill, BsTelephoneFill } from "react-icons/bs";
 import { MdEmail, MdLocationPin } from "react-icons/md";
 import { FaXTwitter } from "react-icons/fa6";
+import { formatDate, ulToArray } from "@/utils/methods";
 
 const TemplateOne = () => {
   const formData = useAppSelector((state) => state);
@@ -97,7 +98,7 @@ const TemplateOne = () => {
           <p className="prof-sum-text">{summary}</p>
         </div>
         <div className="skills-sum">
-          <p className="skills-header">Skills</p>
+          <p className="skills-sum-header">Skills</p>
           <div className="sum-line" />
           <div className="skills">
             {skills.map((skill, index) => (
@@ -105,6 +106,64 @@ const TemplateOne = () => {
             ))}
           </div>
         </div>
+        <div className="exp-sum">
+          <p className="exp-sum-header">Experience</p>
+          <div className="sum-line" />
+          <div className="exps">
+            {experiences.map((experience, index) => (
+              <div className="experience" key={index}>
+                <p className="exp-job-title">
+                  <span>{experience.jobTitle},</span>
+                  <span>{`${experience.state} ${experience.city}`}</span>
+                </p>
+                <p className="exp-company">
+                  <span>{experience.company},</span>
+                  <span>{`${formatDate(experience.startDate)} - ${
+                    experience.present
+                      ? "present"
+                      : formatDate(experience.endDate)
+                  }`}</span>
+                </p>
+                <ul className="exp-list">
+                  {ulToArray(experience.experience).map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="edu-sum">
+          <p className="edu-sum-header">Education</p>
+          <div className="sum-line" />
+          <div className="edu-list">
+            {educationList.map((edu, index) => (
+              <div className="edu" key={index}>
+                <p className="edu-header">
+                  <span>{`${edu.degree} in ${edu.fieldOfStudy}`},</span>
+                  <span>{`${edu.location}`}</span>
+                </p>
+                <p className="edu-school">
+                  <span>{edu.schoolName},</span>{" "}
+                  <span>{`${formatDate(edu.endDate)}`}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {certificates && (
+          <div className="cert-sum">
+            <p className="cert-sum-header">Certifications</p>
+            <div className="sum-line" />
+            <ul className="cert-list">
+              {certificates.map((cert, index) => (
+                <li key={index} className="cert">
+                  <a href={cert.link}>{cert.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </StyledTemplate>
   );
@@ -237,11 +296,11 @@ const StyledTemplate = styled.div`
     .sum-line {
       height: 2px;
       padding: 0 !important;
-      width: 100px;
+      width: 55px;
       background-color: #e0e0e0;
       margin: 3px 0;
     }
-    .skills-header {
+    .skills-sum-header {
       font-size: 20px;
       font-weight: 700;
       color: #050505;
@@ -257,6 +316,117 @@ const StyledTemplate = styled.div`
         padding: 6px 8px;
         border-radius: 4px;
         font-size: 14px;
+      }
+    }
+  }
+
+  .exp-sum {
+    margin-top: 20px;
+
+    .sum-line {
+      height: 2px;
+      padding: 0 !important;
+      width: 110px;
+      background-color: #e0e0e0;
+      margin: 3px 0;
+    }
+    .exp-sum-header {
+      font-size: 20px;
+      font-weight: 700;
+      color: #050505;
+    }
+    .exps {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      .experience {
+        display: flex;
+        flex-direction: column;
+        .exp-job-title {
+          font-weight: 700;
+          display: flex;
+          gap: 10px;
+        }
+        .exp-company {
+          display: flex;
+          gap: 10px;
+          font-size: 14px;
+          color: #909090;
+          font-weight: 500;
+        }
+        .exp-list {
+          list-style: disc;
+          padding-left: 50px;
+        }
+      }
+    }
+  }
+
+  .edu-sum {
+    margin-top: 20px;
+
+    .sum-line {
+      height: 2px;
+      padding: 0 !important;
+      width: 100px;
+      background-color: #e0e0e0;
+      margin: 3px 0;
+    }
+    .edu-sum-header {
+      font-size: 20px;
+      font-weight: 700;
+      color: #050505;
+    }
+    .edu-list {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .edu {
+        .edu-header {
+          font-weight: 700;
+          display: flex;
+          gap: 10px;
+        }
+        .edu-school {
+          display: flex;
+          gap: 10px;
+          font-size: 14px;
+          color: #909090;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .cert-sum {
+    margin-top: 20px;
+
+    .sum-line {
+      height: 2px;
+      padding: 0 !important;
+      width: 130px;
+      background-color: #e0e0e0;
+      margin: 3px 0;
+    }
+    .cert-sum-header {
+      font-size: 20px;
+      font-weight: 700;
+      color: #050505;
+    }
+    .cert-list {
+      margin-top: 15px;
+      display: flex;
+      gap: 35px;
+      flex-wrap: wrap;
+      list-style: disc;
+      padding-left: 50px;
+
+      .cert a {
+        text-decoration: none;
+        color: #4a4a4a;
       }
     }
   }
