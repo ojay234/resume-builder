@@ -51,6 +51,13 @@ const initialResumeFormValues: resumeFormProps = {
   certificates: [],
   skills: [],
   summary: "",
+  templateId: 1,
+  color: {
+    primary: "",
+    secondary: "",
+
+    id: "",
+  },
 };
 
 export default initialResumeFormValues;

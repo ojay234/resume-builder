@@ -7,7 +7,7 @@ import { MdEmail, MdLocationPin } from "react-icons/md";
 import { FaXTwitter } from "react-icons/fa6";
 import { formatDate, ulToArray } from "@/utils/methods";
 
-const TemplateOne = () => {
+const TemplateTwo = () => {
   const formData = useAppSelector((state) => state);
   const {
     experiences,
@@ -88,9 +88,9 @@ const TemplateOne = () => {
             </div>
           </div>
 
-          <div className="header-img-container">
+          {/* <div className="header-img-container">
             <img src={photo} alt="profile" />
-          </div>
+          </div> */}
         </div>
         <div className="prof-sum">
           <p className="prof-sum-header">PROFESSIONAL SUMMARY</p>
@@ -180,7 +180,8 @@ const StyledTemplate = styled.div`
   box-sizing: border-box;
   /* border: 1px solid black; */
 
-  
+  width: 900px;
+  margin: 0 auto;
 
   .content {
     width: calc(100% - 10mm);
@@ -289,6 +290,7 @@ const StyledTemplate = styled.div`
 
     .prof-sum-text {
       margin-top: 15px;
+      text-align: justify;
     }
   }
 
@@ -434,4 +436,4 @@ const StyledTemplate = styled.div`
   }
 `;
 
-export default TemplateOne;
+export default TemplateTwo;

@@ -10,6 +10,12 @@ export type resumeFormProps = {
   certificates: certificateProps[];
   skills: string[];
   summary: string;
+  templateId: number;
+  color: {
+    primary: string;
+    secondary: string;
+    id: string;
+  };
 };
 
 export type PersonalDetailsProps = {

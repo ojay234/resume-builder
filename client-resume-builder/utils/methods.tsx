@@ -25,7 +25,11 @@ export const ulToArray = (htmlContent: string) => {
   const doc = parser.parseFromString(htmlContent, "text/html");
   const ulElement = doc.querySelector("ul");
   if (!ulElement) {
-    return [];
+    const liElements = doc.querySelectorAll("p");
+    const liArray = Array.from(liElements).map((li) => li.innerHTML);
+    const filterListArr = liArray.filter((el) => !el.includes("<"));
+    console.log(liArray);
+    return filterListArr;
   }
 
   const liElements = ulElement.querySelectorAll("li");

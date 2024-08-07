@@ -7,6 +7,7 @@ import TemplateOne from "@/templates/template-one";
 import { sendResume } from "@/api/sendResume";
 import { Provider } from "react-redux";
 import { store } from "@/store";
+import TemplateTwo from "@/templates/template-two";
 
 function Template() {
   const handleGeneratePDF = async () => {
@@ -55,7 +56,7 @@ function Template() {
 
       <CustomButton text="generate resume" clicked={handleGeneratePDF} />
       <div className="mt-10">
-        <TemplateOne />
+        <TemplateTwo />
       </div>
     </div>
   );

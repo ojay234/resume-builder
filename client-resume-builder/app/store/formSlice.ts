@@ -6,6 +6,14 @@ export const formSlice = createSlice({
   name: "form",
   initialState: initialResumeFormValues,
   reducers: {
+    setTemplateId: (state, action) => {
+      state.templateId = action.payload;
+    },
+    setColor: (state, action) => {
+
+      console.log(action.payload, "action")
+      state.color = action.payload;
+    },
     updatePersonalDetails: (state, action) => {
       state.personalDetails = { ...state.personalDetails, ...action.payload };
     },
@@ -53,6 +61,8 @@ export const formSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setTemplateId,
+  setColor,
   updatePersonalDetails,
   updateExperience,
   updateExperiences,

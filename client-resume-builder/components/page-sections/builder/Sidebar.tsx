@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { FaRegUser } from "react-icons/fa";
+import { useAppSelector } from "@/app/hooks/redux-hooks";
+import { FaRegUser, FaSearchPlus } from "react-icons/fa";
 import { CgWorkAlt } from "react-icons/cg";
 import { LuGraduationCap } from "react-icons/lu";
 import { PiCertificate } from "react-icons/pi";
@@ -10,20 +11,30 @@ import { MdOutlineSummarize } from "react-icons/md";
 import { IoIosLink } from "react-icons/io";
 import { BsBookmarkCheck } from "react-icons/bs";
 import { Progress } from "antd";
+import { Modal } from "antd";
 import styled from "styled-components";
 import templates from "@/data/templates";
+import { LiaSearchPlusSolid } from "react-icons/lia";
 
 function Sidebar() {
   const path = usePathname();
   const router = useRouter();
   const [activeButton, setActiveButton] = useState("");
   const [activeTemplateIndex, setActiveTemplateIndex] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const templateId = useAppSelector((state) => state.templateId);
 
-  const activeTemplate = templates.find(
-    (temp) => temp.id === activeTemplateIndex
-  );
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
-  console.log(activeTemplate);
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const activeTemplate = templates.find((temp) => temp.id === templateId);
+
+
 
   useEffect(() => {
     const pathArray = path.split("/");
@@ -106,8 +117,23 @@ function Sidebar() {
           <div className="template">
             <activeTemplate.component />
           </div>
+          <button
+            className="flex items-center gap-2 px-5 py-1.5 bg-black rounded-md text-white text-xs absolute bottom-3 right-[30%] hover:bottom-3.5"
+            onClick={showModal}
+          >
+            <span>
+              <LiaSearchPlusSolid />
+            </span>
+            <span>Preview</span>
+          </button>
         </div>
       )}
+
+      <Modal title="Basic Modal" open={isModalOpen} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
 
       <Progress percent={progress} />
     </SidebarContainer>
