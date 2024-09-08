@@ -55,7 +55,6 @@ const initialResumeFormValues: resumeFormProps = {
   color: {
     primary: "",
     secondary: "",
-
     id: "",
   },
 };

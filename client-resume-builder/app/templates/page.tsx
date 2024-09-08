@@ -37,7 +37,7 @@ function Template() {
         css: templateCss,
       });
 
-      // Handle the PDF data, e.g., trigger a download
+ 
       const blob = new Blob([pdfData]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");

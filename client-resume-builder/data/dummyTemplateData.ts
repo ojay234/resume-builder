@@ -5,7 +5,7 @@ const dummyTemplateData: resumeFormProps = {
   personalDetails: {
     photo: photo.src,
     firstName: "David",
-    lastName: "Ojima",
+    lastName: "Ojay",
     desiredJob: "Software Engineer",
     code: "+234",
     phone: "",
@@ -130,6 +130,7 @@ const dummyTemplateData: resumeFormProps = {
   summary:
     "A seasoned and dedicated web developer with years of specialized experience in front-end development, skilled in crafting responsive, visually captivating websites, and optimizing user interfaces for enhanced user experiences. Known for embracing challenges and proactively seeking opportunities for growth and innovation.",
   templateId: 1,
+
 };
 
 export default dummyTemplateData;

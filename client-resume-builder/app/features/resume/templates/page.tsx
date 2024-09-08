@@ -16,11 +16,12 @@ function Templates() {
 
   const selectedColor = useAppSelector((state) => state.color);
 
-
   const formattedFormData = {
     ...dummyTemplateData,
-    selectedColor,
+    color: selectedColor,
   };
+
+  console.log({ formattedFormData });
 
   const handleSelectedTemplate = (id: number) => {
     dispatch(setTemplateId(id));

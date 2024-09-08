@@ -4,12 +4,14 @@ import HeroSection from "@/components/page-sections/home/hero-section";
 
 export default function Home() {
   return (
-    <section>
+    <section className="">
       <Navbar />
-      <div>
+      <div className="">
         <HeroSection />
       </div>
-      <Footer />
+      <div className="">
+        <Footer />
+      </div>
     </section>
   );
 }

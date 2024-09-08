@@ -172,6 +172,7 @@ const TemplateOne = ({ formData }) => {
 };
 const StyledTemplate = styled.div<{
   color: {
+    id: string;
     primary: string;
     secondary: string;
   };
