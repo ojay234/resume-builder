@@ -22,6 +22,7 @@ function Sidebar() {
   const [activeButton, setActiveButton] = useState("");
   const [activeTemplateIndex, setActiveTemplateIndex] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const formData = useAppSelector((state) => state);
   const templateId = useAppSelector((state) => state.templateId);
 
   const showModal = () => {
@@ -33,8 +34,6 @@ function Sidebar() {
   };
 
   const activeTemplate = templates.find((temp) => temp.id === templateId);
-
-
 
   useEffect(() => {
     const pathArray = path.split("/");
@@ -115,7 +114,7 @@ function Sidebar() {
       {activeTemplate && (
         <div className="template-container">
           <div className="template">
-            <activeTemplate.component />
+            <activeTemplate.component formData={formData} />
           </div>
           <button
             className="flex items-center gap-2 px-5 py-1.5 bg-black rounded-md text-white text-xs absolute bottom-3 right-[30%] hover:bottom-3.5"

@@ -6,9 +6,10 @@ import { BsCursorFill, BsTelephoneFill } from "react-icons/bs";
 import { MdEmail, MdLocationPin } from "react-icons/md";
 import { FaXTwitter } from "react-icons/fa6";
 import { formatDate, ulToArray } from "@/utils/methods";
+import { resumeFormProps } from "@/app/types/formTypes";
+import photoImg from "../assets/images/photo.svg";
 
-const TemplateOne = () => {
-  const formData = useAppSelector((state) => state);
+const TemplateOne = ({ formData }) => {
   const {
     experiences,
     summary,
@@ -16,6 +17,7 @@ const TemplateOne = () => {
     certificates,
     educationList,
     personalDetails,
+    color,
   } = formData || {};
   const {
     photo,
@@ -34,7 +36,7 @@ const TemplateOne = () => {
   } = personalDetails || {};
 
   return (
-    <StyledTemplate>
+    <StyledTemplate color={color}>
       <div className="content">
         <div className="header">
           <div className="header-left-col">
@@ -101,7 +103,7 @@ const TemplateOne = () => {
           <p className="skills-sum-header">Skills</p>
           <div className="sum-line" />
           <div className="skills">
-            {skills.map((skill, index) => (
+            {skills?.map((skill, index) => (
               <span key={index}>{skill}</span>
             ))}
           </div>
@@ -110,7 +112,7 @@ const TemplateOne = () => {
           <p className="exp-sum-header">Experience</p>
           <div className="sum-line" />
           <div className="exps">
-            {experiences.map((experience, index) => (
+            {experiences?.map((experience, index) => (
               <div className="experience" key={index}>
                 <p className="exp-job-title">
                   <span>{experience.jobTitle},</span>
@@ -137,7 +139,7 @@ const TemplateOne = () => {
           <p className="edu-sum-header">Education</p>
           <div className="sum-line" />
           <div className="edu-list">
-            {educationList.map((edu, index) => (
+            {educationList?.map((edu, index) => (
               <div className="edu" key={index}>
                 <p className="edu-header">
                   <span>{`${edu.degree} in ${edu.fieldOfStudy}`},</span>
@@ -156,7 +158,7 @@ const TemplateOne = () => {
             <p className="cert-sum-header">Certifications</p>
             <div className="sum-line" />
             <ul className="cert-list">
-              {certificates.map((cert, index) => (
+              {certificates?.map((cert, index) => (
                 <li key={index} className="cert">
                   <a href={cert.link}>{cert.name}</a>
                 </li>
@@ -168,24 +170,26 @@ const TemplateOne = () => {
     </StyledTemplate>
   );
 };
-const StyledTemplate = styled.div`
+const StyledTemplate = styled.div<{
+  color: {
+    primary: string;
+    secondary: string;
+  };
+}>`
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap");
+
   * {
     margin: 0;
     padding: 0;
   }
 
-  size: A4;
-  /* margin: 10mm; */
-  padding: 0;
-  box-sizing: border-box;
-  /* border: 1px solid black; */
-
-  
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 
   .content {
-    width: calc(100% - 10mm);
+    width: 100%;
     margin: 0 auto;
-    padding: 10mm 0;
   }
 
   /* h1,
@@ -240,7 +244,8 @@ const StyledTemplate = styled.div`
           display: flex;
           align-items: center;
           padding: 6px 8px;
-          background-color: #e0e0e0;
+          background-color: ${(props) =>
+            props.color ? props.color.primary : "#e0e0e0"};
           gap: 10px;
           border-radius: 4px;
           width: fit-content;

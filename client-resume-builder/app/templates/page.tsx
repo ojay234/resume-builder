@@ -8,8 +8,11 @@ import { sendResume } from "@/api/sendResume";
 import { Provider } from "react-redux";
 import { store } from "@/store";
 import TemplateTwo from "@/templates/template-two";
+import { useAppSelector } from "../hooks/redux-hooks";
 
 function Template() {
+  const formData = useAppSelector((state) => state);
+
   const handleGeneratePDF = async () => {
     // Render the TemplateOne component to an HTML string
     const sheet = new ServerStyleSheet();
@@ -18,7 +21,7 @@ function Template() {
       const templateHtml = ReactDOMServer.renderToString(
         sheet.collectStyles(
           <Provider store={store}>
-            <TemplateOne />
+            <TemplateOne formData={formData} />
           </Provider>
         )
       );
@@ -56,7 +59,7 @@ function Template() {
 
       <CustomButton text="generate resume" clicked={handleGeneratePDF} />
       <div className="mt-10">
-        <TemplateTwo />
+        <TemplateTwo formData={formData} />
       </div>
     </div>
   );

@@ -7,8 +7,7 @@ import { MdEmail, MdLocationPin } from "react-icons/md";
 import { FaXTwitter } from "react-icons/fa6";
 import { formatDate, ulToArray } from "@/utils/methods";
 
-const TemplateTwo = () => {
-  const formData = useAppSelector((state) => state);
+const TemplateTwo = ({ formData }) => {
   const {
     experiences,
     summary,
@@ -16,6 +15,7 @@ const TemplateTwo = () => {
     certificates,
     educationList,
     personalDetails,
+    color,
   } = formData || {};
   const {
     photo,
@@ -34,7 +34,7 @@ const TemplateTwo = () => {
   } = personalDetails || {};
 
   return (
-    <StyledTemplate>
+    <StyledTemplate color={color}>
       <div className="content">
         <div className="header">
           <div className="header-left-col">
@@ -101,7 +101,7 @@ const TemplateTwo = () => {
           <p className="skills-sum-header">Skills</p>
           <div className="sum-line" />
           <div className="skills">
-            {skills.map((skill, index) => (
+            {skills?.map((skill, index) => (
               <span key={index}>{skill}</span>
             ))}
           </div>
@@ -110,7 +110,7 @@ const TemplateTwo = () => {
           <p className="exp-sum-header">Experience</p>
           <div className="sum-line" />
           <div className="exps">
-            {experiences.map((experience, index) => (
+            {experiences?.map((experience, index) => (
               <div className="experience" key={index}>
                 <p className="exp-job-title">
                   <span>{experience.jobTitle},</span>
@@ -137,7 +137,7 @@ const TemplateTwo = () => {
           <p className="edu-sum-header">Education</p>
           <div className="sum-line" />
           <div className="edu-list">
-            {educationList.map((edu, index) => (
+            {educationList?.map((edu, index) => (
               <div className="edu" key={index}>
                 <p className="edu-header">
                   <span>{`${edu.degree} in ${edu.fieldOfStudy}`},</span>
@@ -156,7 +156,7 @@ const TemplateTwo = () => {
             <p className="cert-sum-header">Certifications</p>
             <div className="sum-line" />
             <ul className="cert-list">
-              {certificates.map((cert, index) => (
+              {certificates?.map((cert, index) => (
                 <li key={index} className="cert">
                   <a href={cert.link}>{cert.name}</a>
                 </li>
@@ -168,7 +168,12 @@ const TemplateTwo = () => {
     </StyledTemplate>
   );
 };
-const StyledTemplate = styled.div`
+const StyledTemplate = styled.div<{
+  color: {
+    primary: string;
+    secondary: string;
+  };
+}>`
   * {
     margin: 0;
     padding: 0;
@@ -241,7 +246,8 @@ const StyledTemplate = styled.div`
           display: flex;
           align-items: center;
           padding: 6px 8px;
-          background-color: #e0e0e0;
+          background-color: ${(props) =>
+            props.color ? props.color.primary : "#e0e0e0"};
           gap: 10px;
           border-radius: 4px;
           width: fit-content;
